@@ -14,7 +14,12 @@ for i in range(1, 11):  # Assuming there are 10 diseases
     disease_symptom_descriptions.append(symptom_descriptions_processed)
 
 # Load pre-trained word vectors model
-nlp = spacy.load("en_core_web_md")
+
+try:
+    nlp = spacy.load("en_core_web_md")
+except:
+    spacy.cli.download("en_core_web_md")
+    nlp = spacy.load("en_core_web_md")
 
 # Encode symptom descriptions into vectors
 disease_vectors = [nlp(symptom) for symptom in disease_symptom_descriptions]
